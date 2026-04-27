@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mentoria exclusiva de milhas e viagens - Aprenda a viajar pagando quase nada">
+<title>Mentoria de Milhas & Viagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --dark: #0A0A0F;
+    --dark-2: #111118;
+    --dark-3: #1A1A24;
+    --cream: #F5F0E8;
+    --cream-dim: #D4CCBB;
+    --text: #E8E4DC;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: .6;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.4rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,15,.6);
+    border-bottom: 1px solid rgba(201,168,76,.12);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: .12em;
+    color: var(--gold);
+  }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: .55rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--dark); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,.13) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(201,168,76,.06) 0%, transparent 60%);
+  }
+
+  .hero-globe {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.08);
+    animation: spin 40s linear infinite;
+  }
+  .hero-globe::before {
+    content: '';
+    position: absolute;
+    inset: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.05);
+  }
+  .hero-globe::after {
+    content: '';
+    position: absolute;
+    inset: 100px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.04);
+  }
+  @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    max-width: 820px;
+  }
+
+  .hero-eyebrow {
+    font-size: .72rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp .8s .2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    margin-bottom: 1.6rem;
+    opacity: 0;
+    animation: fadeUp .9s .4s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--cream-dim);
+    max-width: 520px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp .9s .6s forwards;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp .9s .8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 1rem 2.4rem;
+    font-size: .82rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all .3s ease;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream-dim);
+    padding: 1rem 2.4rem;
+    font-size: .82rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,.18);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .3s ease;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-top: 1px solid rgba(201,168,76,.12);
+    border-bottom: 1px solid rgba(201,168,76,.12);
+    background: var(--dark-2);
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    flex: 1;
+    min-width: 150px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    border-right: 1px solid rgba(201,168,76,.1);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-top: .5rem;
+    display: block;
+  }
+
+  section { padding: 8rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: .68rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  .about { background: var(--dark); }
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-image-wrapper {
+    position: relative;
+    border: 1px solid rgba(201,168,76,.2);
+    padding: 1rem;
+  }
+  .about-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -10px; left: -10px;
+    width: 40px; height: 40px;
+    border-top: 2px solid var(--gold);
+    border-left: 2px solid var(--gold);
+  }
+  .about-image-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; right: -10px;
+    width: 40px; height: 40px;
+    border-bottom: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+  }
+  .about-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(110%);
+    display: block;
+  }
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--cream-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .learn { background: var(--dark-2); }
+
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: rgba(201,168,76,.1);
+    margin-top: 4rem;
+  }
+
+  .learn-card {
+    background: var(--dark-2);
+    padding: 3rem 2.5rem;
+    transition: background .3s ease;
+  }
+  .learn-card:hover { background: var(--dark-3); }
+
+  .learn-icon {
+    font-size: 2rem;
+    margin-bottom: 1.4rem;
+    display: block;
+  }
+
+  .learn-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: .8rem;
+    color: var(--cream);
+  }
+
+  .learn-card p {
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--cream-dim);
+  }
+
+  .cases { background: var(--dark); }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .case-card {
+    background: var(--dark-3);
+    border: 1px solid rgba(201,168,76,.1);
+    padding: 2.8rem 2.4rem;
+    position: relative;
+    overflow: hidden;
+    transition: all .4s ease;
+  }
+  .case-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform .4s ease;
+  }
+  .case-card:hover::before { transform: scaleX(1); }
+  .case-card:hover { border-color: rgba(201,168,76,.3); transform: translateY(-4px); }
+
+  .case-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    opacity: .3;
+    line-height: 1;
+    margin-bottom: .5rem;
+  }
+
+  .case-destination {
+    font-size: .65rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .case-desc {
+    font-size: .92rem;
+    line-height: 1.7;
+    color: var(--cream-dim);
+    margin-bottom: 2rem;
+  }
+
+  .case-highlight {
+    background: rgba(201,168,76,.08);
+    border-left: 2px solid var(--gold);
+    padding: .9rem 1.2rem;
+    font-size: .85rem;
+    color: var(--cream);
+    margin-bottom: 2rem;
+  }
+
+  .case-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--cream);
+  }
+
+  .case-tag {
+    font-size: .65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-top: .2rem;
+  }
+
+  .how { background: var(--dark-2); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+
+  .step {
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: rgba(201,168,76,.15);
+    line-height: 1;
+    margin-bottom: .5rem;
+  }
+
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-bottom: .7rem;
+    color: var(--cream);
+  }
+
+  .step p {
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--cream-dim);
+  }
+
+  .cta-section {
+    background: var(--dark);
+    text-align: center;
+    padding: 10rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section .section-title { margin-bottom: 1rem; }
+
+  .cta-sub {
+    font-size: 1rem;
+    color: var(--cream-dim);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  footer {
+    background: var(--dark-2);
+    border-top: 1px solid rgba(201,168,76,.1);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: .12em;
+    margin-bottom: .8rem;
+  }
+  footer p {
+    font-size: .75rem;
+    color: rgba(212,204,187,.4);
+    letter-spacing: .06em;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: rgba(201,168,76,.1);
+    border: 1px solid rgba(201,168,76,.25);
+    padding: .5rem 1.1rem;
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: all .8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 850px) {
+    .about-content { grid-template-columns: 1fr; gap: 2rem; }
+    .about-image-wrapper { max-width: 400px; margin: 0 auto; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1.2rem 1.4rem; }
+    .stats { flex-wrap: wrap; }
+    .stat-item { min-width: 45%; border-right: 1px solid rgba(201,168,76,.1); }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">✈ MILHAS & SONHOS</div>
+  <a href="#contato" class="nav-cta">Quero minha vaga</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-globe"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Mentoria exclusiva de milhas e viagens</p>
+    <h1 class="hero-title">
+      Viaje o mundo<br>pagando <em>quase nada</em>
+    </h1>
+    <p class="hero-sub">
+      Aprenda a usar milhas, pontos e cartões de crédito para viajar em família, conhecer praias paradisíacas e destinos internacionais — sem gastar uma fortuna.
+    </p>
+    <div class="hero-btns">
+      <a href="#cases" class="btn-primary">Ver casos reais</a>
+      <a href="#mentoria" class="btn-secondary">Como funciona</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat-item">
+    <span class="stat-num">+50</span>
+    <span class="stat-label">alunos transformados</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">R$0</span>
+    <span class="stat-label">é o que muitos pagam em passagens</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">3</span>
+    <span class="stat-label">continentes alcançados</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">resultados comprovados</span>
+  </div>
+</div>
+
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-content">
+      <div class="about-image-wrapper reveal">
+        <img src="./foto.png" alt="Mentor de Milhas" class="about-image" loading="lazy">
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">✦ O Mentor</span>
+        <h2 class="section-title">Especialista em <em>liberdade</em> geográfica</h2>
+        <p>
+          Minha missão é democratizar o acesso a viagens de alto padrão. O que antes era privilégio de poucos, hoje é uma estratégia acessível para quem domina o jogo das milhas.
+        </p>
+        <p>
+          Através desta mentoria, eu entrego o caminho exato para você parar de desperdiçar pontos e começar a emitir passagens que você nunca imaginou serem possíveis.
+        </p>
+        <a href="#contato" class="btn-primary">Começar agora</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="learn" id="mentoria">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">✦ O que você aprende</span>
+      <h2 class="section-title">Um universo de <em>possibilidades</em><br>que você ainda não conhece</h2>
+    </div>
+    <div class="learn-grid reveal">
+      <div class="learn-card">
+        <span class="learn-icon">✈</span>
+        <h3>Milhas Aéreas</h3>
+        <p>Entenda como acumular e resgatar milhas nas principais companhias para passagens nacionais e internacionais com custo mínimo.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-icon">💳</span>
+        <h3>Cartões Estratégicos</h3>
+        <p>Descubra quais cartões rendem mais pontos, como acelerar o acúmulo e quais parceiros usar para maximizar seu saldo.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-icon">🏨</span>
+        <h3>Hospedagem com Pontos</h3>
+        <p>Hotéis 4 e 5 estrelas pagos com pontos. Aprenda programas como Livelo, Esfera, Smiles, TudoAzul e muito mais.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-icon">🏦</span>
+        <h3>Programas de Pontos</h3>
+        <p>C6 Bank, Livelo, Esfera, Itaú, XP, Nubank — saiba como cada programa funciona e como integrá-los na sua estratégia.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-icon">🗺️</span>
+        <h3>Planejamento de Viagem</h3>
+        <p>Monte roteiros completos usando combinações de milhas, pontos e cashback para viagens nacionais e internacionais.</p>
+      </div>
+      <div class="learn-card">
+        <span class="learn-icon">🎯</span>
+        <h3>Estratégia Personalizada</h3>
+        <p>Cada aluno tem um plano montado de acordo com seu perfil de gastos e destinos desejados. Sem fórmula genérica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cases" id="cases">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">✦ Casos reais de sucesso</span>
+      <h2 class="section-title">Eles duvidavam.<br>Agora <em>viajam</em>.</h2>
+      <p style="color:var(--cream-dim); max-width:500px; line-height:1.7; margin-bottom:1rem; font-size:.92rem;">Resultados reais de pessoas reais que aplicaram o método e mudaram completamente a forma como viajam.</p>
+    </div>
+
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <div class="case-quote">"</div>
+        <div class="case-destination">✈ Viagem em família · Voo ida e volta</div>
+        <p class="case-desc">
+          Wanderson tinha 80 mil pontos acumulados no programa Esfera sem saber o que fazer com eles. Após a mentoria, usou os pontos estrategicamente para levar a família inteira em uma viagem inesquecível.
+        </p>
+        <div class="case-highlight">
+          💰 Família toda viajou ida e volta pagando apenas <strong>R$ 389,00</strong> — com 80k de pontos no Esfera que estavam parados.
+        </div>
+        <div class="case-name">Wanderson</div>
+        <div class="case-tag">Aluno da mentoria · Pontos Esfera</div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-quote">"</div>
+        <div class="case-destination">🌊 Fernando de Noronha · Paraíso sem pagar fortuna</div>
+        <p class="case-desc">
+          Noronha é um dos destinos mais caros do Brasil. Victoria utilizou uma combinação inteligente de pontos C6 Bank e Livelo para tornar esse sonho realidade.
+        </p>
+        <div class="case-highlight">
+          🏝️ Viagem completa para Fernando de Noronha utilizando pontos <strong>C6 Bank + Livelo</strong> — destino dos sonhos com custo mínimo.
+        </div>
+        <div class="case-name">Victoria</div>
+        <div class="case-tag">Aluna da mentoria · C6 Bank & Livelo</div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-quote">"</div>
+        <div class="case-destination">🗽 Estados Unidos · Passagem + Hotel com milhas</div>
+        <p class="case-desc">
+          Emily e Jefferson realizaram o sonho do casal de conhecer os States. Não só as passagens foram com milhas aéreas — a hospedagem também foi 100% coberta por pontos.
+        </p>
+        <div class="case-highlight">
+          ✈🏨 Viagem aos EUA com <strong>passagens aéreas + hospedagem</strong> totalmente cobertos por milhas e pontos acumulados.
+        </div>
+        <div class="case-name">Emily & Jefferson</div>
+        <div class="case-tag">Alunos da mentoria · Milhas aéreas + hospedagem</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">✦ O método</span>
+      <h2 class="section-title">Do zero ao <em>embarque</em><br>em 4 passos</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Diagnóstico</h3>
+        <p>Analisamos seus gastos, cartões, contas bancárias e destinos desejados para entender seu ponto de partida.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3>Estratégia</h3>
+        <p>Montamos um plano personalizado de acúmulo de milhas e pontos baseado no seu perfil e objetivo.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3>Execução</h3>
+        <p>Você aprende na prática como usar cada programa, quando transferir pontos e como resgatar da melhor forma.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <h3>Decolagem</h3>
+        <p>Viagem planejada, passagem emitida, hotel reservado. Você embarca — e paga quase nada por isso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contato">
+  <div class="container">
+    <div class="reveal">
+      <div class="badge">✦ Vagas limitadas</div>
+      <h2 class="section-title">Sua próxima viagem<br>começa <em>aqui</em></h2>
+      <p class="cta-sub">
+        Chega de pagar caro em passagem enquanto seus pontos expiram parados. Entra na mentoria e aprende a viajar do jeito inteligente.
+      </p>
+      <a href="https://wa.me/5511987569836?text=Quero%20saber%20mais%20sobre%20a%20mentoria%20de%20milhas" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        💬 Falar no WhatsApp agora
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">✈ MILHAS & SONHOS</div>
+  <p>Mentoria de milhas, viagens e cartões de crédito · Resultados reais comprovados</p>
+</footer>
+
+<script>
+  const observerOptions = {
+    threshold: 0.12,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  if (!window.IntersectionObserver) {
+    document.querySelectorAll('.reveal').forEach(el => {
+      el.classList.add('visible');
+    });
+  }
+</script>
+</body>
+</html>
