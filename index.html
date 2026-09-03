@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Mentoria exclusiva de milhas e viagens - Aprenda a viajar pagando quase nada">
-<title>Milhas & Sonhos — Mentoria Exclusiva</title>
+<meta name="description" content="Mentoria individual de milhas, pontos e crédito com Ronaldo Macena. Aprenda a transformar seus pontos em passagens, hotéis e experiências reais pagando menos.">
+<meta name="theme-color" content="#060609">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Milhas & Sonhos | Mentoria de Milhas e Crédito">
+<meta property="og:description" content="Estratégia personalizada para acumular pontos, escolher cartões melhores e emitir viagens com milhas.">
+<meta property="og:image" content="https://raw.githubusercontent.com/ronaldomds10-bot/Sitee-rm-milhas/main/foto.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Milhas & Sonhos | Mentoria de Milhas e Crédito</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -27,7 +33,12 @@
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; font-size: 16px; }
+  html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 96px; overflow-x: hidden; }
+  button, input, select, textarea { font: inherit; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+  .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10000; transform: translateY(-150%); background: var(--gold); color: var(--black); padding: .75rem 1rem; text-decoration: none; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; transition: transform .25s ease; }
+  .skip-link:focus { transform: translateY(0); }
 
   body {
     background: var(--black);
@@ -267,6 +278,25 @@
     animation: fadeUp .9s .5s forwards;
   }
 
+  .hero-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
+    flex-wrap: wrap;
+    margin: -1.6rem auto 2.4rem;
+    color: var(--cream-dim);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp .9s .62s forwards;
+  }
+  .hero-proof span {
+    border: 1px solid var(--border-soft);
+    background: rgba(255,255,255,.025);
+    padding: .45rem .75rem;
+  }
   .hero-actions {
     display: flex;
     gap: 1.2rem;
@@ -341,6 +371,7 @@
   }
   .btn-primary:hover::after { opacity: 1; }
   .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(201,168,76,.3); }
+  .btn-primary:active, .btn-ghost:active, .nav-cta:active { transform: translateY(0); }
 
   .btn-ghost {
     display: inline-flex;
@@ -477,6 +508,262 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* RM_MILHAS simulator */
+  .simulator {
+    background:
+      linear-gradient(180deg, var(--dark-2), var(--black));
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .simulator-intro {
+    max-width: 760px;
+    margin-bottom: 2.4rem;
+  }
+  .simulator-intro p {
+    color: var(--cream-dim);
+    max-width: 680px;
+  }
+  .simulator-shell {
+    display: grid;
+    gap: 1.2rem;
+  }
+  .sim-card {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.025);
+    padding: 1.4rem;
+    border-radius: 8px;
+  }
+  .sim-card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+  }
+  .sim-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+  .sim-card-desc {
+    color: var(--cream-faint);
+    font-size: .82rem;
+  }
+  .sim-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .9rem;
+  }
+  .sim-grid.expenses {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sim-field label {
+    display: block;
+    margin-bottom: .4rem;
+    color: var(--cream-dim);
+    font-size: .68rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .sim-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-height: 48px;
+    border: 1px solid var(--border-soft);
+    background: rgba(6,6,9,.55);
+    padding: 0 .85rem;
+  }
+  .sim-prefix {
+    color: var(--gold);
+    font-size: .82rem;
+    flex: 0 0 auto;
+  }
+  .sim-input {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--cream);
+  }
+  .sim-input::placeholder { color: var(--cream-faint); }
+  .sim-expense-label {
+    min-height: 2.2rem;
+  }
+  .sim-expense-label strong {
+    display: block;
+    color: var(--cream);
+    font-size: .9rem;
+    font-weight: 500;
+  }
+  .sim-expense-label span {
+    display: block;
+    color: var(--cream-faint);
+    font-size: .78rem;
+    line-height: 1.35;
+  }
+  .sim-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: .4rem;
+  }
+  .sim-error {
+    color: #F0DFA0;
+    min-height: 1.4rem;
+    font-size: .88rem;
+  }
+  .sim-result {
+    display: none;
+    margin-top: 2.4rem;
+  }
+  .sim-result.visible {
+    display: block;
+  }
+  .result-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  .result-head h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1.05;
+  }
+  .result-head p {
+    color: var(--cream-dim);
+    max-width: 680px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .9rem;
+    margin-bottom: 1.4rem;
+  }
+  .summary-item {
+    border: 1px solid var(--border-soft);
+    background: rgba(255,255,255,.025);
+    padding: 1rem;
+    min-height: 124px;
+  }
+  .summary-label {
+    display: block;
+    color: var(--cream-faint);
+    font-size: .64rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .summary-value {
+    display: block;
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+  .summary-note {
+    display: block;
+    color: var(--cream-faint);
+    font-size: .78rem;
+    line-height: 1.35;
+    margin-top: .45rem;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+  }
+  .breakdown-table {
+    width: 100%;
+    min-width: 780px;
+    border-collapse: collapse;
+    background: rgba(6,6,9,.35);
+  }
+  .breakdown-table th,
+  .breakdown-table td {
+    padding: .75rem .8rem;
+    border-bottom: 1px solid var(--border-soft);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .breakdown-table th:first-child,
+  .breakdown-table td:first-child {
+    text-align: left;
+  }
+  .breakdown-table th {
+    color: var(--gold);
+    font-size: .62rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .breakdown-table td {
+    color: var(--cream-dim);
+    font-size: .88rem;
+  }
+  .breakdown-total {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0 1.4rem;
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .total-points {
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .value-equation {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    flex-wrap: wrap;
+    color: var(--cream-dim);
+    font-size: .9rem;
+  }
+  .value-equation strong {
+    color: var(--gold-light);
+    font-size: 1.05rem;
+  }
+  .destinations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .destination-list {
+    display: grid;
+    gap: .65rem;
+  }
+  .destination-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid var(--border-soft);
+    padding: .8rem;
+    background: rgba(255,255,255,.02);
+  }
+  .destination-item strong { color: var(--cream); }
+  .destination-item span { color: var(--cream-faint); font-size: .82rem; }
+  .destination-points { color: var(--gold-light); text-align: right; }
+  .destination-note {
+    color: var(--cream-faint);
+    font-size: .82rem;
+    line-height: 1.5;
   }
 
   /* ── ABOUT ─────────────────────────────────────── */
@@ -1107,12 +1394,20 @@
     footer { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
     .footer-right { text-align: center; }
     .social-grid { grid-template-columns: repeat(3, 1fr); }
+    .sim-grid,
+    .sim-grid.expenses,
+    .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .destinations { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 640px) {
     nav { padding: 1.2rem 1.2rem; }
     .nav-logo { font-size: .95rem; letter-spacing: .2em; }
     .hero-title { font-size: clamp(2.6rem, 10vw, 4.5rem); }
+    .hero-subtitle { font-size: 1rem; line-height: 1.7; margin-bottom: 2.4rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost { width: 100%; justify-content: center; text-align: center; padding-left: 1.3rem; padding-right: 1.3rem; }
+    .hero-proof { margin-top: -1rem; font-size: .6rem; gap: .5rem; }
     section { padding: 5rem 1.4rem; }
     .hero { padding: 7rem 1.4rem 5rem; }
     .stats { grid-template-columns: repeat(2, 1fr); }
@@ -1121,6 +1416,18 @@
     footer { padding: 3rem 1.4rem; }
     .step { grid-template-columns: 50px 1fr; gap: 1.2rem; }
     .social-grid { grid-template-columns: repeat(2, 1fr); }
+    .sim-card { padding: 1rem; }
+    .sim-card-header,
+    .result-head,
+    .breakdown-total { display: block; }
+    .sim-grid,
+    .sim-grid.expenses,
+    .summary-grid { grid-template-columns: 1fr; }
+    .summary-item { min-height: 108px; }
+    .summary-value,
+    .total-points { font-size: 1.75rem; }
+    .sim-actions .btn-primary,
+    .sim-actions .btn-ghost { width: 100%; justify-content: center; text-align: center; }
 
     /* CTA actions mobile */
     .cta-actions { flex-direction: column; align-items: center; gap: .9rem; }
@@ -1158,12 +1465,55 @@
   /* Extra small phones */
   @media (max-width: 380px) {
     .hero-title { font-size: clamp(2.2rem, 9vw, 3rem); }
+    .hero-subtitle { font-size: 1rem; line-height: 1.7; margin-bottom: 2.4rem; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost { width: 100%; justify-content: center; text-align: center; padding-left: 1.3rem; padding-right: 1.3rem; }
+    .hero-proof { margin-top: -1rem; font-size: .6rem; gap: .5rem; }
     .social-grid { grid-template-columns: repeat(2, 1fr); }
     .social-card { padding: 1.8rem 1rem; }
     .social-icon { width: 44px; height: 44px; }
     .cta-actions > * { font-size: .62rem; padding: .9rem 1.4rem; }
   }
 
+  @media print {
+    body.printing-report * { visibility: hidden !important; }
+    body.printing-report,
+    body.printing-report .simulator,
+    body.printing-report .sim-result,
+    body.printing-report .sim-result * {
+      visibility: visible !important;
+      background: #fff !important;
+      color: #111 !important;
+      box-shadow: none !important;
+    }
+    body.printing-report .simulator {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      padding: 24px !important;
+      border: 0 !important;
+    }
+    body.printing-report .simulator-intro,
+    body.printing-report .simulator-shell,
+    body.printing-report .result-head button { display: none !important; }
+    body.printing-report .sim-result { display: block !important; margin: 0 !important; }
+    body.printing-report .sim-card,
+    body.printing-report .summary-item,
+    body.printing-report .breakdown-total,
+    body.printing-report .destination-item,
+    body.printing-report .table-wrap {
+      border-color: #ddd !important;
+    }
+    body.printing-report .summary-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    body.printing-report .breakdown-table { min-width: 0 !important; }
+    body.printing-report .breakdown-table th,
+    body.printing-report .breakdown-table td { border-color: #ddd !important; color: #111 !important; }
+  }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  }
   /* ── SCHEDULE POPUP ────────────────────────────── */
   .popup-overlay {
     position: fixed; inset: 0;
@@ -1643,6 +1993,7 @@
 </style>
 </head>
 <body>
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
 <!-- ══ NAVIGATION ══════════════════════════════════ -->
 <nav>
@@ -1654,12 +2005,13 @@
     <a href="#sobre" class="nav-link">O Mentor</a>
     <a href="#mentoria" class="nav-link">Método</a>
     <a href="#cases" class="nav-link">Resultados</a>
+    <a href="#simulador" class="nav-link">Simulador</a>
     <a href="#redes" class="nav-link">Redes</a>
     <a href="https://loja.infinitepay.io/rmsantoss?categories=" class="nav-link" target="_blank" rel="noopener">Produtos</a>
     <a href="#contato" class="nav-cta"><span>Quero minha vaga</span></a>
     <button class="nav-cta" onclick="openSchedulePopup()" style="margin-left:.5rem;cursor:pointer;font-family:inherit;"><span>Agendar horário</span></button>
   </div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+  <button class="nav-hamburger" id="hamburger" aria-label="Abrir menu" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMobileMenu()">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1669,6 +2021,7 @@
   <a href="#sobre" class="mobile-menu-link" onclick="toggleMobileMenu()">O Mentor</a>
   <a href="#mentoria" class="mobile-menu-link" onclick="toggleMobileMenu()">Método</a>
   <a href="#cases" class="mobile-menu-link" onclick="toggleMobileMenu()">Resultados</a>
+  <a href="#simulador" class="mobile-menu-link" onclick="toggleMobileMenu()">Simulador</a>
   <a href="#redes" class="mobile-menu-link" onclick="toggleMobileMenu()">Redes</a>
   <a href="https://loja.infinitepay.io/rmsantoss?categories=" class="mobile-menu-link" target="_blank" rel="noopener" onclick="toggleMobileMenu()">Produtos</a>
   <div class="mobile-menu-cta">
@@ -1678,7 +2031,8 @@
 </div>
 
 <!-- ══ HERO ════════════════════════════════════════ -->
-<section class="hero">
+<main id="conteudo">
+<section class="hero" aria-labelledby="hero-title">
   <div class="hero-canvas">
     <div class="orbital orbital-1"></div>
     <div class="orbital orbital-2"></div>
@@ -1692,7 +2046,7 @@
       <div class="hero-pre-line"></div>
     </div>
 
-    <h1 class="hero-title">
+    <h1 class="hero-title" id="hero-title">
       Seus pontos valem<br>uma <em>viagem real</em>
     </h1>
 
@@ -1700,9 +2054,15 @@
       Você acumula pontos todo mês sem saber o que fazer com eles. Eu te mostro, passo a passo, como transformar esse saldo parado em passagens, hotéis e experiências — pagando só a taxa aeroportuária.
     </p>
 
+    <div class="hero-proof" aria-label="Diferenciais da mentoria">
+      <span>Mentoria individual</span>
+      <span>Plano personalizado</span>
+      <span>Do crédito ao embarque</span>
+    </div>
+
     <div class="hero-actions">
-      <a href="#cases" class="btn-primary">Ver resultados reais</a>
-      <a href="#mentoria" class="btn-ghost">Como funciona</a>
+      <button onclick="openSchedulePopup()" class="btn-primary">Agendar sessão estratégica</button>
+      <a href="#cases" class="btn-ghost">Ver resultados reais</a>
     </div>
   </div>
 
@@ -1761,12 +2121,83 @@
 </div>
 
 <!-- ══ ABOUT ══════════════════════════════════════ -->
+<section class="simulator" id="simulador" aria-labelledby="simulator-title">
+  <div class="container">
+    <div class="simulator-intro reveal">
+      <div class="section-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">RM_MILHAS</span>
+      </div>
+      <h2 class="section-title" id="simulator-title">Simulador de <em>pontos</em></h2>
+      <p>Informe seus gastos atuais e veja uma proje&ccedil;&atilde;o simples do que eles podem representar em pontos, milhas e valor estimado ao longo de 12 meses.</p>
+    </div>
+
+    <form class="simulator-shell reveal" id="pointsSimulatorForm" novalidate>
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <h3 class="sim-card-title">Identifica&ccedil;&atilde;o</h3>
+        </div>
+        <div class="sim-grid">
+          <div class="sim-field">
+            <label for="sim-name">Nome completo *</label>
+            <div class="sim-input-wrap">
+              <input class="sim-input" id="sim-name" name="name" type="text" placeholder="Como devemos te chamar?" autocomplete="name" required>
+            </div>
+          </div>
+          <div class="sim-field">
+            <label for="sim-whatsapp">WhatsApp *</label>
+            <div class="sim-input-wrap">
+              <input class="sim-input" id="sim-whatsapp" name="whatsapp" type="tel" placeholder="(11) 99999-9999" autocomplete="tel" required>
+            </div>
+          </div>
+          <div class="sim-field">
+            <label for="sim-city">Cidade / Estado</label>
+            <div class="sim-input-wrap">
+              <input class="sim-input" id="sim-city" name="city" type="text" placeholder="S&atilde;o Paulo / SP" autocomplete="address-level2">
+            </div>
+          </div>
+          <div class="sim-field">
+            <label for="sim-income">Renda mensal</label>
+            <div class="sim-input-wrap">
+              <span class="sim-prefix">R$</span>
+              <input class="sim-input money-input" id="sim-income" name="monthlyIncome" type="text" inputmode="numeric" placeholder="0,00" value="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <h3 class="sim-card-title">Gastos Mensais Vari&aacute;veis</h3>
+          <p class="sim-card-desc">Valores m&eacute;dios em R$ &middot; deixe 0 se n&atilde;o tiver</p>
+        </div>
+        <div class="sim-grid expenses" id="variableExpenses"></div>
+      </div>
+
+      <div class="sim-card">
+        <div class="sim-card-header">
+          <h3 class="sim-card-title">Contas Fixas Mensais</h3>
+          <p class="sim-card-desc">Contas recorrentes todo m&ecirc;s</p>
+        </div>
+        <div class="sim-grid expenses" id="fixedExpenses"></div>
+      </div>
+
+      <div class="sim-actions">
+        <button class="btn-primary" type="submit">Gerar meu relat&oacute;rio personalizado</button>
+        <span class="sim-error" id="simError" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+
+    <div class="sim-result" id="simResult" aria-live="polite"></div>
+  </div>
+</section>
+
 <section class="about" id="sobre">
   <div class="container">
     <div class="about-layout">
       <div class="about-image-frame reveal">
         <div class="about-image-border">
-          <img src="https://raw.githubusercontent.com/ronaldomds10-bot/Sitee-rm-milhas/main/foto.png" alt="Ronaldo Macena" class="about-image" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;display:block;filter:contrast(108%) brightness(.95);">
+          <img src="https://raw.githubusercontent.com/ronaldomds10-bot/Sitee-rm-milhas/main/foto.png" alt="Ronaldo Macena, mentor de milhas e crédito" loading="lazy" decoding="async" class="about-image" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;display:block;filter:contrast(108%) brightness(.95);">
           <div class="about-image-tag">
             <strong>+50</strong>
             <span>Vidas transformadas</span>
@@ -2156,11 +2587,13 @@
   </div>
 </section>
 
+</main>
+
 <!-- ══ FOOTER ════════════════════════════════════ -->
 <footer>
   <div class="footer-logo">✈ Milhas &amp; Sonhos</div>
   <div class="footer-center">Ronaldo Macena · Mentoria exclusiva de milhas e crédito</div>
-  <div class="footer-right">© 2025 Milhas &amp; Sonhos</div>
+  <div class="footer-right">© 2026 Milhas &amp; Sonhos</div>
 </footer>
 
 <!-- ══ BOT WIDGET ══════════════════════════════════ -->
@@ -2297,9 +2730,11 @@
   function toggleMobileMenu() {
     const menu = document.getElementById('mobileMenu');
     const btn = document.getElementById('hamburger');
-    menu.classList.toggle('open');
-    btn.classList.toggle('active');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    const isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('active', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 
   // ── Bot widget ──────────────────────────────────
@@ -2348,8 +2783,279 @@
     if (e.target === document.getElementById('schedulePopup')) closeSchedulePopup();
   }
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeSchedulePopup();
+    if (e.key === 'Escape') {
+      closeSchedulePopup();
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburger');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Abrir menu');
+        document.body.style.overflow = '';
+      }
+    }
   });
+
+  const BRL_FORMATTER = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+  const POINTS_FORMATTER = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+  const PERCENT_FORMATTER = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const SMILES_BONUS_RATE = 0.90;
+  const POINT_VALUE_PER_THOUSAND = 13;
+
+  const EXPENSE_CATEGORIES = [
+    { id: 'fuel', name: 'Combust&iacute;vel', detail: 'Gasolina / Etanol', type: 'variable', multiplier: 2 },
+    { id: 'pet', name: 'Pet Shop / Veterin&aacute;rio', detail: 'Ra&ccedil;&atilde;o, banho, consulta', type: 'variable', multiplier: 4 },
+    { id: 'market', name: 'Supermercado / Mercado', detail: 'Compra do m&ecirc;s', type: 'variable', multiplier: 5 },
+    { id: 'pharmacy', name: 'Farm&aacute;cia / Perfumaria', detail: 'Rem&eacute;dios, higiene', type: 'variable', multiplier: 3 },
+    { id: 'restaurants', name: 'Restaurantes / Delivery', detail: 'iFood, restaurantes', type: 'variable', multiplier: 2.5 },
+    { id: 'rides', name: 'Uber / 99', detail: 'Corridas do dia a dia', type: 'variable', multiplier: 2.5 },
+    { id: 'online', name: 'Compras Online', detail: 'Shopee, Mercado Livre', type: 'variable', multiplier: 2.5 },
+    { id: 'streaming', name: 'Streaming / Assinaturas', detail: 'Netflix, Spotify...', type: 'variable', multiplier: 2.5 },
+    { id: 'water', name: 'Conta de &Aacute;gua', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'electricity', name: 'Conta de Luz', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'health', name: 'Conv&ecirc;nio / Plano de Sa&uacute;de', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'internet', name: 'Internet / TV / Telefone', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'rent', name: 'Aluguel / Condom&iacute;nio', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'school', name: 'Escola / Faculdade', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'gym', name: 'Academia / Cursos', detail: '', type: 'fixed', multiplier: 2.5 },
+    { id: 'otherFixed', name: 'Outras contas fixas', detail: '', type: 'fixed', multiplier: 2.5 }
+  ];
+
+  const DESTINATIONS = [
+    { name: 'Rio de Janeiro', country: 'RJ', type: 'national', pointsRequired: 20000 },
+    { name: 'Porto Alegre', country: 'RS', type: 'national', pointsRequired: 20000 },
+    { name: 'Salvador', country: 'BA', type: 'national', pointsRequired: 30000 },
+    { name: 'Fortaleza', country: 'CE', type: 'national', pointsRequired: 32000 },
+    { name: 'Recife', country: 'PE', type: 'national', pointsRequired: 36000 },
+    { name: 'Buenos Aires', country: 'Argentina', type: 'international', pointsRequired: 60000 },
+    { name: 'Lisboa', country: 'Portugal', type: 'international', pointsRequired: 90000 },
+    { name: 'Miami', country: 'EUA', type: 'international', pointsRequired: 100000 }
+  ];
+
+  let currentSimulation = null;
+
+  function decodeHtml(text) {
+    const box = document.createElement('textarea');
+    box.innerHTML = text;
+    return box.value;
+  }
+
+  function parseMoney(value) {
+    const digits = String(value || '').replace(/\D/g, '');
+    return digits ? Number(digits) / 100 : 0;
+  }
+
+  function formatMoneyInput(value) {
+    const amount = parseMoney(value);
+    return amount ? amount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0,00';
+  }
+
+  function formatMultiplier(value) {
+    return String(value).replace('.', ',');
+  }
+
+  function maskWhatsapp(value) {
+    const digits = String(value || '').replace(/\D/g, '').slice(0, 11);
+    if (digits.length <= 2) return digits ? `(${digits}` : '';
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  }
+
+  function categoryInput(category) {
+    return `
+      <div class="sim-field">
+        <label class="sim-expense-label" for="expense-${category.id}">
+          <strong>${category.name}</strong>
+          ${category.detail ? `<span>${category.detail}</span>` : ''}
+        </label>
+        <div class="sim-input-wrap">
+          <span class="sim-prefix">R$</span>
+          <input class="sim-input money-input expense-input" id="expense-${category.id}" name="${category.id}" type="text" inputmode="numeric" placeholder="0,00" value="0" data-category-id="${category.id}">
+        </div>
+      </div>
+    `;
+  }
+
+  function setupSimulator() {
+    const variableBox = document.getElementById('variableExpenses');
+    const fixedBox = document.getElementById('fixedExpenses');
+    const form = document.getElementById('pointsSimulatorForm');
+    const whatsapp = document.getElementById('sim-whatsapp');
+    if (!variableBox || !fixedBox || !form || !whatsapp) return;
+
+    variableBox.innerHTML = EXPENSE_CATEGORIES.filter(c => c.type === 'variable').map(categoryInput).join('');
+    fixedBox.innerHTML = EXPENSE_CATEGORIES.filter(c => c.type === 'fixed').map(categoryInput).join('');
+
+    document.querySelectorAll('.money-input').forEach(input => {
+      input.addEventListener('input', () => { input.value = formatMoneyInput(input.value); });
+      input.addEventListener('focus', () => { if (input.value === '0') input.value = ''; });
+      input.addEventListener('blur', () => { input.value = formatMoneyInput(input.value); });
+    });
+
+    whatsapp.addEventListener('input', () => { whatsapp.value = maskWhatsapp(whatsapp.value); });
+    form.addEventListener('submit', handleSimulationSubmit);
+  }
+
+  function calculateSimulation(data) {
+    const categories = data.expenses
+      .map(expense => {
+        const monthlyAmount = Math.max(0, expense.amount);
+        const annualAmount = monthlyAmount * 12;
+        const monthlyPoints = monthlyAmount * expense.multiplier;
+        const annualPointsBeforeBonus = monthlyPoints * 12;
+        const annualPointsWithBonus = annualPointsBeforeBonus * (1 + SMILES_BONUS_RATE);
+        const estimatedValue = (annualPointsWithBonus / 1000) * POINT_VALUE_PER_THOUSAND;
+        return { ...expense, monthlyAmount, annualAmount, monthlyPoints, annualPointsBeforeBonus, annualPointsWithBonus, estimatedValue };
+      })
+      .filter(category => category.monthlyAmount > 0);
+
+    const monthlyPoints = categories.reduce((sum, category) => sum + category.monthlyPoints, 0);
+    const annualPointsBeforeBonus = monthlyPoints * 12;
+    const annualPointsWithBonus = annualPointsBeforeBonus * (1 + SMILES_BONUS_RATE);
+    const estimatedValue = (annualPointsWithBonus / 1000) * POINT_VALUE_PER_THOUSAND;
+    const annualIncome = data.monthlyIncome * 12;
+    const incomeReturnPercentage = annualIncome > 0 ? (estimatedValue / annualIncome) * 100 : null;
+
+    return {
+      name: data.name,
+      whatsapp: data.whatsapp,
+      city: data.city,
+      monthlyIncome: data.monthlyIncome,
+      generatedAt: new Date(),
+      categories,
+      monthlyPoints,
+      annualPointsBeforeBonus,
+      annualPointsWithBonus,
+      estimatedValue,
+      incomeReturnPercentage,
+      destinations: {
+        national: DESTINATIONS.filter(destination => destination.type === 'national' && destination.pointsRequired <= annualPointsWithBonus).slice(0, 5),
+        international: DESTINATIONS.filter(destination => destination.type === 'international' && destination.pointsRequired <= annualPointsWithBonus).slice(0, 3)
+      }
+    };
+  }
+
+  function getSimulationData() {
+    const expenses = EXPENSE_CATEGORIES.map(category => {
+      const input = document.querySelector(`[data-category-id="${category.id}"]`);
+      return { id: category.id, name: decodeHtml(category.name), type: category.type, multiplier: category.multiplier, amount: parseMoney(input ? input.value : 0) };
+    });
+    return {
+      name: document.getElementById('sim-name').value.trim(),
+      whatsapp: document.getElementById('sim-whatsapp').value.trim(),
+      city: document.getElementById('sim-city').value.trim(),
+      monthlyIncome: parseMoney(document.getElementById('sim-income').value),
+      expenses
+    };
+  }
+
+  function handleSimulationSubmit(event) {
+    event.preventDefault();
+    const error = document.getElementById('simError');
+    const data = getSimulationData();
+    if (!data.name || !data.whatsapp) {
+      error.innerHTML = 'Preencha os campos obrigat&oacute;rios';
+      return;
+    }
+    error.textContent = '';
+    currentSimulation = calculateSimulation(data);
+    renderSimulation(currentSimulation);
+    document.getElementById('simResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderSimulation(simulation) {
+    const result = document.getElementById('simResult');
+    const incomePercent = simulation.incomeReturnPercentage === null ? '&mdash;' : `${PERCENT_FORMATTER.format(simulation.incomeReturnPercentage)}%`;
+    const rows = simulation.categories.map(category => `
+      <tr>
+        <td>${category.name}</td>
+        <td>${BRL_FORMATTER.format(category.monthlyAmount)}</td>
+        <td>${BRL_FORMATTER.format(category.annualAmount)}</td>
+        <td>&times;${formatMultiplier(category.multiplier)}</td>
+        <td>${POINTS_FORMATTER.format(category.annualPointsWithBonus)}</td>
+        <td>${BRL_FORMATTER.format(category.estimatedValue)}</td>
+      </tr>
+    `).join('');
+
+    result.innerHTML = `
+      <div class="sim-card">
+        <div class="result-head">
+          <div>
+            <span class="eyebrow-text">RM_MILHAS</span>
+            <h3>Seu relat&oacute;rio</h3>
+            <p><strong>Relat&oacute;rio Personalizado</strong> &middot; Nome: ${escapeHtml(simulation.name)}</p>
+            <p>Ol&aacute;, ${escapeHtml(simulation.name)}. Com base nos seus gastos atuais, veja uma proje&ccedil;&atilde;o do que esses gastos poderiam representar em pontos durante 12 meses.</p>
+          </div>
+          <button class="btn-ghost" type="button" onclick="saveSimulationPdf()">Salvar relat&oacute;rio em PDF</button>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-item"><span class="summary-label">Pontos / m&ecirc;s</span><span class="summary-value">${POINTS_FORMATTER.format(simulation.monthlyPoints)}</span></div>
+          <div class="summary-item"><span class="summary-label">Pontos / ano</span><span class="summary-value">${POINTS_FORMATTER.format(simulation.annualPointsWithBonus)}</span><span class="summary-note">com bonifica&ccedil;&atilde;o SMILES 90%</span></div>
+          <div class="summary-item"><span class="summary-label">Equivalente em R$</span><span class="summary-value">${BRL_FORMATTER.format(simulation.estimatedValue)}</span><span class="summary-note">~R$ 13,00 / mil pts</span></div>
+          <div class="summary-item"><span class="summary-label">% da sua renda</span><span class="summary-value">${incomePercent}</span><span class="summary-note">retorno anual</span></div>
+        </div>
+
+        <h4 class="sim-card-title">Breakdown completo por categoria</h4>
+        <div class="table-wrap">
+          <table class="breakdown-table">
+            <thead><tr><th>Categoria</th><th>R$ / m&ecirc;s</th><th>R$ / ano</th><th>&times;Pts</th><th>Pts / ano + 90%</th><th>Valor R$</th></tr></thead>
+            <tbody>${rows || '<tr><td colspan="6">Nenhuma categoria preenchida.</td></tr>'}</tbody>
+          </table>
+        </div>
+
+        <div class="breakdown-total">
+          <div>
+            <span class="summary-label">Total de pontos / ano</span>
+            <strong class="total-points">${POINTS_FORMATTER.format(simulation.annualPointsWithBonus)}</strong>
+            <span class="summary-note">j&aacute; com bonifica&ccedil;&atilde;o SMILES 90%</span>
+          </div>
+          <div class="value-equation">
+            <strong>${POINTS_FORMATTER.format(simulation.annualPointsWithBonus)} pontos</strong><span>&times;</span><span>R$ 13,00 cada 1.000 pontos</span><span>=</span><strong>${BRL_FORMATTER.format(simulation.estimatedValue)}</strong><span>Valor estimado</span>
+          </div>
+        </div>
+
+        <h4 class="sim-card-title">Onde seus pontos te levam.</h4>
+        <div class="destinations">
+          <div><span class="summary-label">Nacionais</span><div class="destination-list">${renderDestinations(simulation.destinations.national, 'Nenhum destino nacional alcan&ccedil;ado nesta estimativa.')}</div></div>
+          <div><span class="summary-label">Internacionais</span><div class="destination-list">${renderDestinations(simulation.destinations.international, 'Nenhum destino internacional alcan&ccedil;ado nesta estimativa.')}</div></div>
+        </div>
+        <p class="destination-note">Valores em pontos s&atilde;o refer&ecirc;ncias para passagens de ida e volta em classe econ&ocirc;mica e podem variar conforme datas e disponibilidade.</p>
+        <p class="destination-note">Simula&ccedil;&atilde;o realizada pela RM_MILHAS &middot; Data da simula&ccedil;&atilde;o: ${simulation.generatedAt.toLocaleDateString('pt-BR')} &middot; Cidade / Estado: ${simulation.city ? escapeHtml(simulation.city) : 'n&atilde;o informado'} &middot; Renda mensal: ${BRL_FORMATTER.format(simulation.monthlyIncome)} &middot; Bonifica&ccedil;&atilde;o considerada: 90%</p>
+      </div>
+    `;
+    result.classList.add('visible');
+  }
+
+  function renderDestinations(destinations, emptyText) {
+    if (!destinations.length) return `<div class="destination-item"><span>${emptyText}</span></div>`;
+    return destinations.map(destination => `
+      <div class="destination-item">
+        <div><strong>${destination.name}</strong><br><span>${destination.country}</span></div>
+        <div class="destination-points">${POINTS_FORMATTER.format(destination.pointsRequired)} pts</div>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+  }
+
+  function saveSimulationPdf() {
+    if (!currentSimulation) return;
+    const oldTitle = document.title;
+    document.body.classList.add('printing-report');
+    document.title = `RM_MILHAS - Relatorio Personalizado - ${currentSimulation.name}`;
+    window.print();
+    setTimeout(() => {
+      document.body.classList.remove('printing-report');
+      document.title = oldTitle;
+    }, 600);
+  }
+
+  setupSimulator();
 
   // ── Supabase config ────────────────────────────
   const SUPABASE_URL  = 'https://pcazrjzdylbdeebkewbx.supabase.co';
