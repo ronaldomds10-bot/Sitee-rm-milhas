@@ -109,6 +109,7 @@
     color: var(--cream-dim);
     text-decoration: none;
     transition: color .3s;
+    white-space: nowrap;
   }
   .nav-link:hover { color: var(--gold); }
 
@@ -127,6 +128,7 @@
     display: inline-block;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
   }
   .nav-cta::before {
     content: '';
@@ -146,7 +148,7 @@
     place-items: center;
     position: relative;
     overflow: hidden;
-    padding: 9rem 4rem 6rem;
+    padding: 9rem 4rem 7.5rem;
   }
 
   .hero-canvas {
@@ -228,7 +230,8 @@
   .hero-content {
     position: relative;
     text-align: center;
-    max-width: 900px;
+    max-width: 940px;
+    z-index: 1;
   }
 
   .hero-pre {
@@ -251,13 +254,15 @@
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.8rem, 9vw, 7.5rem);
+    font-size: clamp(3.8rem, 8.5vw, 7.4rem);
     font-weight: 300;
     line-height: 1.0;
     letter-spacing: -.02em;
     margin-bottom: 2rem;
     opacity: 0;
     animation: fadeUp .9s .3s forwards;
+    text-wrap: balance;
+    text-shadow: 0 16px 54px rgba(0,0,0,.42);
   }
   .hero-title em {
     font-style: italic;
@@ -272,8 +277,8 @@
     font-weight: 400;
     line-height: 1.85;
     color: var(--cream);
-    max-width: 540px;
-    margin: 0 auto 3.5rem;
+    max-width: 600px;
+    margin: 0 auto 3.1rem;
     opacity: 0;
     animation: fadeUp .9s .5s forwards;
   }
@@ -305,26 +310,26 @@
     opacity: 0;
     animation: fadeUp .9s .7s forwards;
   }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost {
+    min-width: 260px;
+    justify-content: center;
+  }
 
   .hero-scroll {
     position: absolute;
-    bottom: 3rem; left: 50%;
+    bottom: 2rem; left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .6rem;
+    width: 1px;
+    height: 54px;
     opacity: 0;
     animation: fadeIn 1s 1.4s forwards;
-  }
-  .hero-scroll-text {
-    font-size: .58rem;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: var(--cream-dim);
+    pointer-events: none;
   }
   .hero-scroll-bar {
-    width: 1px; height: 48px;
+    display: block;
+    width: 1px;
+    height: 100%;
     background: linear-gradient(var(--gold), transparent);
     animation: scrollPulse 2s ease-in-out infinite;
   }
@@ -361,6 +366,7 @@
     transition: all .35s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 34px rgba(201,168,76,.18);
   }
   .btn-primary::after {
     content: '';
@@ -389,8 +395,9 @@
     font-family: 'DM Sans', sans-serif;
     font-weight: 400;
     transition: all .35s ease;
+    background: rgba(255,255,255,.02);
   }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,.06); }
 
   /* ── MARQUEE STRIP ─────────────────────────────── */
   .marquee-strip {
@@ -609,16 +616,55 @@
     line-height: 1.35;
   }
   .sim-actions {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
     gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: .4rem;
+    margin-top: .5rem;
+    border: 1px solid rgba(232,201,106,.34);
+    background:
+      linear-gradient(135deg, rgba(201,168,76,.15), rgba(255,255,255,.035) 42%, rgba(201,168,76,.08)),
+      rgba(6,6,9,.5);
+    padding: 1.1rem;
+    border-radius: 8px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.07);
+  }
+  .sim-action-copy {
+    min-width: 0;
+  }
+  .sim-action-kicker {
+    display: block;
+    color: var(--gold-light);
+    font-size: .62rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: .25rem;
+  }
+  .sim-action-title {
+    display: block;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    line-height: 1.05;
+  }
+  .sim-action-note {
+    display: block;
+    color: var(--cream-dim);
+    font-size: .88rem;
+    line-height: 1.5;
+    margin-top: .35rem;
+  }
+  .sim-actions .btn-primary {
+    min-width: 300px;
+    min-height: 58px;
+    justify-content: center;
+    box-shadow: 0 14px 42px rgba(201,168,76,.24);
   }
   .sim-error {
     color: #F0DFA0;
     min-height: 1.4rem;
     font-size: .88rem;
+    grid-column: 1 / -1;
   }
   .sim-result {
     display: none;
@@ -643,6 +689,26 @@
   .result-head p {
     color: var(--cream-dim);
     max-width: 680px;
+  }
+  .result-actions {
+    display: grid;
+    gap: .7rem;
+    min-width: 290px;
+    border: 1px solid rgba(232,201,106,.36);
+    background: rgba(201,168,76,.08);
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  .result-actions .btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+  .result-actions-note {
+    color: var(--cream-dim);
+    font-size: .8rem;
+    line-height: 1.45;
   }
   .summary-grid {
     display: grid;
@@ -1400,16 +1466,24 @@
     .destinations { grid-template-columns: 1fr; }
   }
 
+  @media (max-height: 720px) and (min-width: 641px) {
+    .hero { padding-bottom: 4.5rem; }
+    .hero-scroll { display: none; }
+    .hero-subtitle { margin-bottom: 2rem; }
+  }
+
   @media (max-width: 640px) {
     nav { padding: 1.2rem 1.2rem; }
     .nav-logo { font-size: .95rem; letter-spacing: .2em; }
-    .hero-title { font-size: clamp(2.6rem, 10vw, 4.5rem); }
+    .hero-title { font-size: clamp(2.8rem, 13vw, 4.4rem); margin-bottom: 1.4rem; }
     .hero-subtitle { font-size: 1rem; line-height: 1.7; margin-bottom: 2.4rem; }
     .hero-actions { flex-direction: column; align-items: stretch; }
-    .hero-actions .btn-primary, .hero-actions .btn-ghost { width: 100%; justify-content: center; text-align: center; padding-left: 1.3rem; padding-right: 1.3rem; }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost { width: 100%; min-width: 0; justify-content: center; text-align: center; padding-left: 1.3rem; padding-right: 1.3rem; }
     .hero-proof { margin-top: -1rem; font-size: .6rem; gap: .5rem; }
     section { padding: 5rem 1.4rem; }
-    .hero { padding: 7rem 1.4rem 5rem; }
+    .hero { min-height: auto; padding: 7rem 1.4rem 3.75rem; }
+    .hero-pre { margin-bottom: 1.6rem; }
+    .hero-scroll { display: none; }
     .stats { grid-template-columns: repeat(2, 1fr); }
     .learn-grid { grid-template-columns: 1fr; }
     .cta-section { padding: 8rem 1.4rem; }
@@ -1426,8 +1500,23 @@
     .summary-item { min-height: 108px; }
     .summary-value,
     .total-points { font-size: 1.75rem; }
+    .sim-actions {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
     .sim-actions .btn-primary,
-    .sim-actions .btn-ghost { width: 100%; justify-content: center; text-align: center; }
+    .sim-actions .btn-ghost {
+      width: 100%;
+      min-width: 0;
+      justify-content: center;
+      text-align: center;
+      padding-left: 1.1rem;
+      padding-right: 1.1rem;
+    }
+    .result-actions {
+      min-width: 0;
+      margin-top: 1rem;
+    }
 
     /* CTA actions mobile */
     .cta-actions { flex-direction: column; align-items: center; gap: .9rem; }
@@ -1452,7 +1541,7 @@
 
     /* Bot widget mobile */
     .bot-widget { bottom: 1rem; right: 1rem; }
-    .bot-bubble { max-width: 175px; }
+    .bot-bubble { display: none; }
     .bot-btn { width: 54px; height: 54px; }
 
     /* Footer mobile */
@@ -1495,6 +1584,7 @@
     }
     body.printing-report .simulator-intro,
     body.printing-report .simulator-shell,
+    body.printing-report .result-actions,
     body.printing-report .result-head button { display: none !important; }
     body.printing-report .sim-result { display: block !important; margin: 0 !important; }
     body.printing-report .sim-card,
@@ -1897,6 +1987,24 @@
     transition: all .3s ease;
   }
 
+  @media (max-width: 1380px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-right { gap: 1.35rem; }
+    .nav-link { font-size: .62rem; letter-spacing: .18em; }
+    .nav-cta { padding: .62rem 1.25rem; font-size: .62rem; letter-spacing: .18em; }
+  }
+
+  @media (max-height: 720px) and (min-width: 641px) {
+    .hero { padding-top: 7rem; padding-bottom: 3.5rem; }
+    .hero-pre { margin-bottom: 1.35rem; }
+    .hero-title { font-size: clamp(3.2rem, 7.2vw, 5.7rem); margin-bottom: 1.25rem; }
+    .hero-subtitle { font-size: 1.05rem; line-height: 1.65; margin-bottom: 1.65rem; }
+    .hero-proof { margin: -0.6rem auto 1.45rem; }
+    .hero-scroll,
+    .bot-bubble { display: none; }
+    .bot-widget { bottom: 1.4rem; right: 1.4rem; }
+  }
+
   @media (max-width: 640px) {
     /* Popup mobile - full fixes */
     .popup-overlay { padding: 0; align-items: flex-start; }
@@ -2046,7 +2154,7 @@
       <div class="hero-pre-line"></div>
     </div>
 
-    <h1 class="hero-title" id="hero-title">
+    <h1 class="hero-title" id="hero-title" aria-label="Seus pontos valem uma viagem real">
       Seus pontos valem<br>uma <em>viagem real</em>
     </h1>
 
@@ -2066,8 +2174,7 @@
     </div>
   </div>
 
-  <div class="hero-scroll">
-    <span class="hero-scroll-text">Scroll</span>
+  <div class="hero-scroll" aria-hidden="true">
     <div class="hero-scroll-bar"></div>
   </div>
 </section>
@@ -2183,7 +2290,12 @@
       </div>
 
       <div class="sim-actions">
-        <button class="btn-primary" type="submit">Gerar meu relat&oacute;rio personalizado</button>
+        <div class="sim-action-copy">
+          <span class="sim-action-kicker">Resultado na hora</span>
+          <span class="sim-action-title">Veja sua proje&ccedil;&atilde;o e transforme em PDF</span>
+          <span class="sim-action-note">Depois de gerar, o relat&oacute;rio aparece abaixo com a op&ccedil;&atilde;o de salvar em PDF.</span>
+        </div>
+        <button class="btn-primary" type="submit">Ver resultado agora</button>
         <span class="sim-error" id="simError" role="status" aria-live="polite"></span>
       </div>
     </form>
@@ -2988,7 +3100,10 @@
             <p><strong>Relat&oacute;rio Personalizado</strong> &middot; Nome: ${escapeHtml(simulation.name)}</p>
             <p>Ol&aacute;, ${escapeHtml(simulation.name)}. Com base nos seus gastos atuais, veja uma proje&ccedil;&atilde;o do que esses gastos poderiam representar em pontos durante 12 meses.</p>
           </div>
-          <button class="btn-ghost" type="button" onclick="saveSimulationPdf()">Salvar relat&oacute;rio em PDF</button>
+          <div class="result-actions">
+            <button class="btn-primary" type="button" onclick="saveSimulationPdf()">Salvar em PDF</button>
+            <span class="result-actions-note">Use este bot&atilde;o para baixar ou imprimir o relat&oacute;rio personalizado.</span>
+          </div>
         </div>
 
         <div class="summary-grid">
