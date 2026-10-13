@@ -1,0 +1,88 @@
+{
+  "project": "prj_kla3va7XvVdfysgiAIzIRK33Zwea",
+  "teamId": "team_aUyTmyJD1gAa7oxWCKJjIoiO",
+  "productionDeployment": "dpl_baJ46v4vS13oQKHxG3d8pf2KJZqz",
+  "note": "O repositório estava atrás da produção. As APIs, banco, Resend e vídeos foram preservados diretamente dos arquivos da Vercel, sem alterar variáveis de ambiente. Para o próximo deploy, incluir TODOS os arquivos abaixo por SHA e o index.html atualizado como data no POST /v13/deployments. Não publicar apenas os arquivos atuais do GitHub: as APIs e vídeos originais ainda não estão materializados no repositório. Os SHAs são referências de arquivos já enviados à mesma equipe Vercel, não credenciais.",
+  "files": [
+    {
+      "file": ".vercelignore",
+      "sha": "f372663cb8d893351733082a9b33df866474615d"
+    },
+    {
+      "file": "api/_db.js",
+      "sha": "05f53e24b5f52d4ac15b778de7e39c1722213954"
+    },
+    {
+      "file": "api/_email.js",
+      "sha": "683806ac330bcf4c34ec660a98e4740953d59fbe"
+    },
+    {
+      "file": "api/_http.js",
+      "sha": "170f195f3e62a9040497757feedf57acb5bed598"
+    },
+    {
+      "file": "api/schedules.js",
+      "sha": "0111a688bdf2636db79d1b2ca867ce08de8a1e28"
+    },
+    {
+      "file": "api/simulations.js",
+      "sha": "3061934fcc3e0643c249c0d28919d7479e8657b2"
+    },
+    {
+      "file": "assets/videos/emily-jefferson-depoimento-poster.jpg",
+      "sha": "b2fe54449aa807d12c432567ba1dcd89a11e88cd"
+    },
+    {
+      "file": "assets/videos/emily-jefferson-depoimento.mp4",
+      "sha": "3f5160220f1512f42de0fd4dc7d4839fdb1ace13"
+    },
+    {
+      "file": "assets/videos/evelyn-depoimento-poster.jpg",
+      "sha": "24dd71023ad2b70ba36c3e3139adb7735caa39a2"
+    },
+    {
+      "file": "assets/videos/evelyn-depoimento.mp4",
+      "sha": "d21a3fac54b590fbc78832e22de52c5f4d314566"
+    },
+    {
+      "file": "assets/videos/lovato-depoimento-poster.jpg",
+      "sha": "5cf04e82edeb22962ed523c4b1e1e4d180320f2f"
+    },
+    {
+      "file": "assets/videos/lovato-depoimento.mp4",
+      "sha": "e9b01438d26d4af6dae2b4a648164de4ca0b6ea3"
+    },
+    {
+      "file": "assets/videos/victoria-depoimento-poster.jpg",
+      "sha": "7702ee5c35727c953c65f555b513ab1ca82a2f25"
+    },
+    {
+      "file": "assets/videos/victoria-depoimento.mp4",
+      "sha": "38e1bf47ac1fdfca82a2647059146c9ac9e134d2"
+    },
+    {
+      "file": "database/schema.sql",
+      "sha": "7e553573230a2d5f505d1c2b77bcf5c6873ea668"
+    },
+    {
+      "file": "foto.png",
+      "sha": "cd04e71e5901de69b988109c3502c2fda26f78ac"
+    },
+    {
+      "file": "package-lock.json",
+      "sha": "6f2f56b347f9356c86ee5d7bde3b152314dbde24"
+    },
+    {
+      "file": "package.json",
+      "sha": "f8297421b7dab46afeb7ec11fde4ba741284c38c"
+    },
+    {
+      "file": "scripts/migrate.js",
+      "sha": "11ef629282b586557c4385b11c776990d7f9feb1"
+    },
+    {
+      "file": "vercel.json",
+      "sha": "e3be2c8cac4b7fd7f635641c5b51a2a81dcf209a"
+    }
+  ]
+}
